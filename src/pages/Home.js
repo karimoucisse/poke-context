@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import { UserContext } from '../Contexts/User'
+import { Link } from 'react-router-dom'
 const Home = ()=> {
     
-    const [pokemons, setPokemon] = useState([])
+    const [pokemons, setPokemon] = useState(null)
     const [id, setId] = useState(1)
+    const {isLogged, setIsLogged} = useContext(UserContext)
 
-    useEffect(() => { // => componentDidUpdate mais seulement le state counter
+    useEffect(() => {
        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then(response => response.json())
-      .then(result => {
-        setPokemon([result] )   
-      }) 
+      .then(result => setPokemon(result)) 
       
       }, [id])
 
@@ -19,29 +21,40 @@ const Home = ()=> {
         console.log(id);
         console.log("id");
     }
-      
+
+    if(!pokemons) {
+        return null
+    }
+
     return(
         <>
-            <div className="container">
-                    {pokemons.map(pokemon => (
-                        <div key={pokemon.name} className="pokemon">
-                            <img src={pokemon.sprites.other["official-artwork"].front_default} />
-                            <div className="description">
-                                <h2 className="pokemon_name">{pokemon.name}</h2>
-                                <p>height : {pokemon.height}</p>
-                                <p>weight : {pokemon.weight}</p>
-                                <p>Types : </p>
-                                <ul>{pokemon.types.map(pokemonType => (
-                                    <li key={pokemonType.type.name}>{pokemonType.type.name}</li>
-                                    // <p>{pokemonType.type.name}</p>
-                                    // {console.log(pokemonType.type.name);}
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    ))}
-            </div>
-            <button className="random_btn" onClick={handleButtonClick}>Random pokemon</button>
+            {isLogged 
+                && <>
+                    <div className="container">
+                                <div className="pokemon">
+                                    <img src={pokemons.sprites.other["official-artwork"].front_default} alt={pokemons.name}/>
+                                    <h1 className="pokemon_name">{pokemons.name}</h1>
+                                    <div className="description">
+                                        <p>height : {pokemons.height}</p>
+                                        <p>weight : {pokemons.weight}</p>
+                                        <div>
+                                            <p>Types : </p>
+                                            {pokemons.types.map(pokemonType => (
+                                                <p key={pokemonType.type.name}><span>. </span>{pokemonType.type.name}</p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                    <button className="random_btn" onClick={handleButtonClick}>Random pokemon</button>
+                </>
+            }
+            {!isLogged 
+                && <div className="container_login">
+                    <h1>veiller vous connecter</h1>
+                    <Link to ="/Login"><button>Go to Log in</button></Link>
+                </div>
+            }
         </>
     )
     

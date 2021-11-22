@@ -13,6 +13,9 @@ body {
   flex-direction: column;
   align-items: center;
 }
+.isInvalid {
+  border: 2px solid red;
+}
 a {
   text-decoration: none;
 }
@@ -21,7 +24,7 @@ nav {
 }
 nav ul {
   display: flex;
-  justify-content: start;
+  /* justify-content: start; */
   padding: 1px 0px 2px 40px;
   gap: 50px;
 }
@@ -59,9 +62,10 @@ nav a {
 }
 .description {
   width: 100%;
-  /* background-color: transparent; */
+  /* background-color: #2a6ca1; */
+  /* color: #0000 !important; */
   border-radius: 40px  15%;
-  padding: 8px 20px 20px 20px ;
+  padding: 8px 20px 20px 30px ;
   display: none;
 }
 .pokemon:hover .description {
@@ -69,7 +73,9 @@ nav a {
 }
 .pokemon_name {
   /* color: #fff; */
-  margin: 0;
+  margin: 0 0 20px 0;
+  display: flex;
+  justify-content: center;
 }
 .pokemon img {
   /* position: relative;
@@ -78,9 +84,12 @@ nav a {
   width: 120%; */
   width: 90%;
 }
-.description ul {
-  display: flex;
-  flex-direction: column;
+.description p {
+  margin: 0;
+}
+.description span {
+  font-size: 22px;
+  margin-left: 10px;
 }
 .random_btn {
   margin-top: 10px;
@@ -97,11 +106,71 @@ nav a {
   background-color: #00357a;
   color: #fff;
 }
-
+.container_login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+.container_login h1 {
+  color: red;
+  text-shadow: 4px 4px 4px rgb(8, 8, 8);
+}
+.container_login button {
+  font-size: 24px;
+  border-radius: 20px;
+  border-color: red;
+}
+.container_login button:hover {
+  background-color: red;
+  color: #fff;
+  box-shadow: 4px 4px 4px black;
+}
+/****************       Login          **********************************/
+form {
+  width: 50%;
+  /* border: 2px solid #fff; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 0 30px 0;
+  margin-top: 4em;
+}
 form div {
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 2px solid red; */
+  width: 100%;
+}
+form div input {
+  width: 60%;
+  height: 35px;
 }
 .username {
   margin-bottom: 20px;
+  margin-top: 20px;
+}
+form .errors {
+  font-size: 21px;
+  color: red;
+  font-weight: 500;
+}
+label {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+form button {
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 5px 5px;
+  background-color: #fff;
+  color: #00357a;
+  border-color: #00357a;
+  font-size: 20px;
+  font-weight: bold;
   margin-top: 20px;
 }
